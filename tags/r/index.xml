@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on 翔的城市(程式)</title>
+    <link>https://leo981118.github.io/tags/r/</link>
+    <description>Recent content in R on 翔的城市(程式)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Thu, 06 Aug 2020 10:16:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://leo981118.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>機器學習競賽</title>
+      <link>https://leo981118.github.io/blog/mechine_learing/</link>
+      <pubDate>Thu, 06 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/blog/mechine_learing/</guid>
+      <description>愛文芒果等級分類競賽 因緣際會之下選了這堂課，這學期課程內容非常的充實。與課本內容搭配的作業，讓我對機器學習的方法與理論有了初步的了解， 而課本的解說也非常的詳細，並不會非常的難理解。然而，project對我來說則是困難上許多， 除了學過的方法之外， 更要自己去學習摸索project會用到的其他工具與package，需要非常多額外的時間跟精力才能完成。 因此寫下這篇紀念一下與感謝組長及隊友carry我過關 流程 問題描述-&amp;gt;基本資料-&amp;gt;圖片處理-&amp;gt;模型結果問題描述-芒果等級分類 基本資料    資料集 總筆數 A B C     Train 5600 1792 2068 1740   Test 800 243 293 264   Dev 未知 未知 未知 未知    圖片處理(以下紅框為我參與的部分) 模型結果 我這邊先放我自己跑的model(Random Forest)以下為綜合比較和最後的競賽成績組長(翊芃)及組員(玟蘭、庭嘉、少柏 、晉群 、我) </description>
+    </item>
+    
+  </channel>
+</rss>

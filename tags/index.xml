@@ -6,71 +6,89 @@
     <description>Recent content in Tags on 翔的城市(程式)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 01 Aug 2020 23:56:47 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2020 21:45:00 +0800</lastBuildDate>
     
 	<atom:link href="https://leo981118.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>practice</title>
-      <link>https://leo981118.github.io/tags/practice/</link>
+      <title>app inventor 2</title>
+      <link>https://leo981118.github.io/tags/app-inventor-2/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/app-inventor-2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>arduino</title>
+      <link>https://leo981118.github.io/tags/arduino/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/arduino/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blooth</title>
+      <link>https://leo981118.github.io/tags/blooth/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/blooth/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>機械</title>
+      <link>https://leo981118.github.io/tags/%E6%A9%9F%E6%A2%B0/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/%E6%A9%9F%E6%A2%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>自控</title>
+      <link>https://leo981118.github.io/tags/%E8%87%AA%E6%8E%A7/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/%E8%87%AA%E6%8E%A7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mechine learing</title>
+      <link>https://leo981118.github.io/tags/mechine-learing/</link>
+      <pubDate>Thu, 06 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/mechine-learing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://leo981118.github.io/tags/r/</link>
+      <pubDate>Thu, 06 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>markdown</title>
+      <link>https://leo981118.github.io/tags/markdown/</link>
       <pubDate>Sat, 01 Aug 2020 23:56:47 +0800</pubDate>
       
-      <guid>https://leo981118.github.io/tags/practice/</guid>
+      <guid>https://leo981118.github.io/tags/markdown/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>test</title>
-      <link>https://leo981118.github.io/tags/test/</link>
+      <title>網頁</title>
+      <link>https://leo981118.github.io/tags/%E7%B6%B2%E9%A0%81/</link>
       <pubDate>Sat, 01 Aug 2020 23:56:47 +0800</pubDate>
       
-      <guid>https://leo981118.github.io/tags/test/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Game</title>
-      <link>https://leo981118.github.io/tags/game/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://leo981118.github.io/tags/game/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HTML</title>
-      <link>https://leo981118.github.io/tags/html/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://leo981118.github.io/tags/html/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>New</title>
-      <link>https://leo981118.github.io/tags/new/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://leo981118.github.io/tags/new/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Photos</title>
-      <link>https://leo981118.github.io/tags/photos/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://leo981118.github.io/tags/photos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://leo981118.github.io/tags/python/</link>
-      <pubDate>Tue, 29 Oct 2019 10:07:47 +0600</pubDate>
-      
-      <guid>https://leo981118.github.io/tags/python/</guid>
+      <guid>https://leo981118.github.io/tags/%E7%B6%B2%E9%A0%81/</guid>
       <description></description>
     </item>
     

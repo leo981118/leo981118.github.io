@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>arduino on 翔的城市(程式)</title>
+    <link>https://leo981118.github.io/tags/arduino/</link>
+    <description>Recent content in arduino on 翔的城市(程式)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Thu, 06 Aug 2020 21:45:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://leo981118.github.io/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>機械專題</title>
+      <link>https://leo981118.github.io/blog/mechanical_project/</link>
+      <pubDate>Thu, 06 Aug 2020 21:45:00 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/blog/mechanical_project/</guid>
+      <description>機械專題實作 大三下真的是最忙的一次，機械專題真的是一門充實且繁忙的課。 從零開始設計構思到加工組裝，再到中間遇到失敗廢棄重做， 但團隊任務中最重要的就是合作，我們這組每個人都完成了該完成的部分，有餘力時都會幫忙其他人。 幸運的是，我們基本沒有熬夜到。 流程 問題描述-&amp;gt;機體發想-&amp;gt;組員分工-&amp;gt;組裝測試-&amp;gt;競賽問題描述 1.利用機器人系統在物流倉儲中心內執行物品的取放與分類任務，為目前智慧化倉儲中心發展的趨勢。2.各組製作兩台機器人，包含一台夾物機器人與一台運輸機器人。夾物機器人利用無線遙控方式操作，運輸機器人則利用全自動方式操作3.</description>
+    </item>
+    
+  </channel>
+</rss>

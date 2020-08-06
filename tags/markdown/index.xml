@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>markdown on 翔的城市(程式)</title>
+    <link>https://leo981118.github.io/tags/markdown/</link>
+    <description>Recent content in markdown on 翔的城市(程式)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Sat, 01 Aug 2020 23:56:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://leo981118.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>翔的第一篇文章</title>
+      <link>https://leo981118.github.io/blog/test/</link>
+      <pubDate>Sat, 01 Aug 2020 23:56:47 +0800</pubDate>
+      
+      <guid>https://leo981118.github.io/blog/test/</guid>
+      <description>hello world!!
+我是翔
+一級標題 二級標題 六級標題 我是翔，我喜歡學習
+ 翔 what  is it?</description>
+    </item>
+    
+  </channel>
+</rss>

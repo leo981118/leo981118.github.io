@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-tw"><head>
+  <meta charset="utf-8">
+  <title>翔的城市(程式)</title>
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="愛文芒果等級分類競賽">
+  <meta name="author" content="翔">
+  <meta name="generator" content="Hugo 0.74.3" />
+
+  <!-- plugins -->
+  
+  <link rel="stylesheet" href="https://leo981118.github.io/plugins/bootstrap/bootstrap.min.css ">
+  
+  <link rel="stylesheet" href="https://leo981118.github.io/plugins/slick/slick.css ">
+  
+  <link rel="stylesheet" href="https://leo981118.github.io/plugins/themify-icons/themify-icons.css ">
+  
+  <link rel="stylesheet" href="https://leo981118.github.io/plugins/venobox/venobox.css ">
+  
+
+  <!-- Main Stylesheet -->
+  
+  <link rel="stylesheet" href="https://leo981118.github.io/scss/style.min.css" media="screen">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="https://leo981118.github.io/images/favicon.png " type="image/x-icon">
+  <link rel="icon" href="https://leo981118.github.io/images/favicon.png " type="image/x-icon">
+
+  
+  
+</head><body>
+<!-- preloader start -->
+<div class="preloader">
+  
+</div>
+<!-- preloader end -->
+<!-- navigation -->
+<header class="navigation">
+  <div class="container">
+    
+    <nav class="navbar navbar-expand-lg navbar-white bg-transparent border-bottom pl-0">
+      <a class="navbar-brand mobile-view" href="https://leo981118.github.io"><img class="img-fluid"
+          src="https://leo981118.github.io/images/school.png" alt="翔的城市(程式)"></a>
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+        <i class="ti-menu h3"></i>
+      </button>
+
+      <div class="collapse navbar-collapse text-center" id="navigation">
+        <div class="desktop-view">
+          <ul class="navbar-nav mr-auto">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.facebook.com/profile.php?id=100005454005140"><i class="ti-facebook"></i></a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="http://github.com/leo981118"><i class="ti-github"></i></a>
+            </li>
+            
+          </ul>
+        </div>
+
+        <a class="navbar-brand mx-auto desktop-view" href="https://leo981118.github.io"><img class="img-fluid"
+            src="https://leo981118.github.io/images/school.png" alt="翔的城市(程式)"></a>
+
+        <ul class="navbar-nav">
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="https://leo981118.github.io/">Home</a>
+          </li>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="https://leo981118.github.io/about">About</a>
+          </li>
+          
+          
+        </ul>
+
+        
+        <!-- search -->
+        <div class="search pl-lg-4">
+          <button id="searchOpen" class="search-btn"><i class="ti-search"></i></button>
+          <div class="search-wrapper">
+            <form action="https://leo981118.github.io/search" class="h-100">
+              <input class="search-box px-4" id="search-query" name="s" type="search" placeholder="Type & Hit Enter...">
+            </form>
+            <button id="searchClose" class="search-close"><i class="ti-close text-dark"></i></button>
+          </div>
+        </div>
+        
+
+        
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- /navigation -->
+
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        
+        <a href="/categories/%e7%a8%8b%e5%bc%8f"
+          class="text-primary">程式</a>
+        
+        <h2>機器學習競賽</h2>
+        <div class="mb-3 post-meta">
+          <span>By 翔</span>
+          
+          <span class="border-bottom border-primary px-2 mx-1"></span>
+          <span>06 August 2020</span>
+          
+        </div>
+        
+        <div class="content mb-5">
+          <h1 id="愛文芒果等級分類競賽">愛文芒果等級分類競賽</h1>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">因緣際會之下選了這堂課，這學期課程內容非常的充實。與課本內容搭配的作業，讓我對機器學習的方法與理論有了初步的了解，
+而課本的解說也非常的詳細，並不會非常的難理解。然而，project對我來說則是困難上許多，
+除了學過的方法之外，
+更要自己去學習摸索project會用到的其他工具與package，需要非常多額外的時間跟精力才能完成。
+因此寫下這篇紀念一下與感謝組長及隊友carry我過關
+
+</code></pre></div><h3 id="流程">流程</h3>
+<pre><code>問題描述-&gt;基本資料-&gt;圖片處理-&gt;模型結果
+</code></pre><h3 id="問題描述-芒果等級分類">問題描述-芒果等級分類</h3>
+<p><img src="/images/brief1.png" alt=""></p>
+<h3 id="基本資料">基本資料</h3>
+<table>
+<thead>
+<tr>
+<th>資料集</th>
+<th>總筆數</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Train</td>
+<td>5600</td>
+<td>1792</td>
+<td>2068</td>
+<td>1740</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>800</td>
+<td>243</td>
+<td>293</td>
+<td>264</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>未知</td>
+<td>未知</td>
+<td>未知</td>
+<td>未知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="圖片處理以下紅框為我參與的部分">圖片處理(以下紅框為我參與的部分)</h3>
+<p><img src="/images/pre_processing.png" alt=""></p>
+<p><img src="/images/feature1.png" alt=""></p>
+<p><img src="/images/feature2.png" alt=""></p>
+<h3 id="模型結果">模型結果</h3>
+<pre><code>我這邊先放我自己跑的model(Random Forest)
+</code></pre><p><img src="/images/rf.png" alt=""></p>
+<pre><code>以下為綜合比較和最後的競賽成績
+</code></pre><p><img src="/images/acc3.png" alt=""> 
+<img src="/images/result.png" alt=""></p>
+<h3 id="組長翊芃及組員玟蘭庭嘉少柏-晉群-我">組長(翊芃)及組員(玟蘭、庭嘉、少柏 、晉群 、我)</h3>
+<p><img src="/images/mel_mem.png" alt=""></p>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://utteranc.es/client.js"
+        repo="leo981118/leo981118.github.io"
+        issue-term="pathname"
+        theme="github-light"  
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+
+<!-- JS Plugins -->
+
+<script src="https://leo981118.github.io/plugins/jQuery/jquery.min.js"></script>
+
+<script src="https://leo981118.github.io/plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="https://leo981118.github.io/plugins/slick/slick.min.js"></script>
+
+<script src="https://leo981118.github.io/plugins/venobox/venobox.min.js"></script>
+
+<script src="https://leo981118.github.io/plugins/search/fuse.min.js"></script>
+
+<script src="https://leo981118.github.io/plugins/search/mark.js"></script>
+
+<script src="https://leo981118.github.io/plugins/search/search.js"></script>
+
+<!-- Main Script -->
+
+<script src="https://leo981118.github.io/js/script.min.js"></script>
+<!-- google analitycs -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-174259691-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
