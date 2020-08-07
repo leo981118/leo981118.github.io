@@ -5,7 +5,7 @@
 
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="機械系大三_機械專題">
+  <meta name="description" content="機械系大三_機械專題實作">
   <meta name="author" content="翔">
   <meta name="generator" content="Hugo 0.74.3" />
 
@@ -109,7 +109,7 @@
         <a href="/categories/%e7%a8%8b%e5%bc%8f"
           class="text-primary">程式</a>
         
-        <h2>機械專題</h2>
+        <h2>夾物與自動運輸車</h2>
         <div class="mb-3 post-meta">
           <span>By 翔</span>
           
@@ -140,6 +140,387 @@
 4.運輸機器人由輸送帶及滑坡構成
 5.運輸機器人感測裝置的部分有 紅外線感測器(循跡用) 紅外線感測器、超聲波感測器(確定到達訂單指定放置地點)
 </code></pre><p><img src="/images/me_robot.png" alt=""></p>
+<h3 id="組員分工我主要負責夾物機器人城市方面">組員分工(我主要負責夾物機器人城市方面)</h3>
+<pre><code>arduino(車體)
+</code></pre><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-arduino" data-lang="arduino"><span style="color:#888;font-style:italic">#include</span> <span style="color:#888;font-style:italic">&lt;SoftwareSerial.h&gt;</span><span style="color:#888;font-style:italic">
+</span><span style="color:#888;font-style:italic">#include</span> <span style="color:#888;font-style:italic">&lt;Servo.h&gt;</span><span style="color:#888;font-style:italic">
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">SoftwareSerial</span> <span style="color:#000">BT</span>(<span style="color:#3af">13</span>, <span style="color:#3af">12</span>); <span style="color:#888;font-style:italic">// TX, RX
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">Servo</span> <span style="color:#000">myservo2</span>; <span style="color:#888;font-style:italic">//基座
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">Servo</span> <span style="color:#000">myservo1</span>; <span style="color:#888;font-style:italic">//夾爪0-40
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">Servo</span> <span style="color:#000">myservo4</span>; <span style="color:#888;font-style:italic">//起始0手臂  20-95
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">Servo</span> <span style="color:#000">myservo3</span>; <span style="color:#888;font-style:italic">//起始180手臂
+</span><span style="color:#888;font-style:italic"></span><span style="color:#000">Servo</span> <span style="color:#000">box2</span>;
+<span style="color:#000">Servo</span> <span style="color:#000">box1</span>;
+<span style="color:#000">Servo</span> <span style="color:#000">box3</span>;
+<span style="color:#000">Servo</span> <span style="color:#000">box4</span>;
+
+<span style="color:#00f">char</span> <span style="color:#000">c</span> = <span style="color:#5a2">&#39; &#39;</span>;
+<span style="color:#00f">int</span> <span style="color:#000">pos1</span> = <span style="color:#3af">45</span>;
+<span style="color:#00f">int</span> <span style="color:#000">pos2</span> = <span style="color:#3af">0</span>;
+<span style="color:#00f">int</span> <span style="color:#000">pos4</span> = <span style="color:#3af">20</span>;
+<span style="color:#00f">int</span> <span style="color:#000">pos3</span> = <span style="color:#3af">180</span>;
+
+<span style="color:#00f">void</span> <span style="color:#000">setup</span>()
+{
+  <span style="color:#000">Serial</span>.<span style="color:#000">begin</span>(<span style="color:#3af">9600</span>);
+  <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;BT is ready!&#34;</span>);
+  <span style="color:#000">BT</span>.<span style="color:#000">begin</span>(<span style="color:#3af">9600</span>);
+  <span style="color:#000">myservo1</span>.<span style="color:#000">attach</span>(<span style="color:#3af">7</span>);
+  <span style="color:#000">myservo1</span>.<span style="color:#000">write</span>(<span style="color:#3af">45</span>);
+  <span style="color:#000">myservo2</span>.<span style="color:#000">attach</span>(<span style="color:#3af">6</span>);
+  <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#3af">0</span>);
+  <span style="color:#000">myservo4</span>.<span style="color:#000">attach</span>(<span style="color:#3af">8</span>);
+  <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#3af">20</span>);
+  <span style="color:#000">myservo3</span>.<span style="color:#000">attach</span>(<span style="color:#3af">9</span>);
+  <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#3af">180</span>);
+  <span style="color:#000">box1</span>.<span style="color:#000">attach</span>(<span style="color:#3af">5</span>);
+  <span style="color:#000">box1</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+  <span style="color:#000">box2</span>.<span style="color:#000">attach</span>(<span style="color:#3af">4</span>);
+  <span style="color:#000">box2</span>.<span style="color:#000">write</span>(<span style="color:#3af">97</span>);
+  <span style="color:#000">box3</span>.<span style="color:#000">attach</span>(<span style="color:#3af">2</span>);
+  <span style="color:#000">box3</span>.<span style="color:#000">write</span>(<span style="color:#3af">94</span>);
+  <span style="color:#000">box4</span>.<span style="color:#000">attach</span>(<span style="color:#3af">3</span>);
+  <span style="color:#000">box4</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+
+}
+
+<span style="color:#00f">void</span> <span style="color:#000">loop</span>()
+{
+
+
+  <span style="color:#00f">while</span> (<span style="color:#3af">1</span>)
+  {
+
+    <span style="color:#00f">if</span> (<span style="color:#000">BT</span>.<span style="color:#000">available</span>())  <span style="color:#888;font-style:italic">//判斷有沒有訊息接收
+</span><span style="color:#888;font-style:italic"></span>    {
+
+
+      <span style="color:#000">c</span> = <span style="color:#000">BT</span>.<span style="color:#000">read</span>();
+
+      <span style="color:#888;font-style:italic">/////////////////////////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;a&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;左旋&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos2</span> &gt; <span style="color:#3af">0</span>)
+        {
+          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> - <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos2</span>);
+        }
+        <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;b&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;右旋&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos2</span> &lt; <span style="color:#3af">270</span>)
+        {
+          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> + <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos2</span>);
+        }
+        <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+      }
+      <span style="color:#888;font-style:italic">///////////////////////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;c&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;0+&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos4</span> &lt; <span style="color:#3af">95</span>)
+        {
+          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> + <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos4</span>);
+        }
+        <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">250</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;d&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;0-&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos4</span> &gt; <span style="color:#3af">0</span>)
+        {
+          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> - <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos4</span>);
+        }
+        <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">250</span>);
+      }
+      <span style="color:#888;font-style:italic">//////////////////////////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;e&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;180+&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos3</span> &lt; <span style="color:#3af">180</span>)
+        {
+          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> + <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos3</span>);
+        }
+        <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">100</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;f&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;180-&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">0</span>)
+        {
+          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos3</span>);
+        }
+        <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">100</span>);
+      }
+      <span style="color:#888;font-style:italic">/////////////////////////////////////////////////////////////////////////////0度 0 180度 170
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;g&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">print</span>(<span style="color:#5a2">&#34;Up&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos1</span> &lt; <span style="color:#3af">125</span>)
+        {
+          <span style="color:#000">pos1</span> = <span style="color:#000">pos1</span> + <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos1</span>);
+        }
+        <span style="color:#000">myservo1</span>.<span style="color:#000">write</span>(<span style="color:#000">pos1</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;h&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">print</span>(<span style="color:#5a2">&#34;DOWN&#34;</span>);
+        <span style="color:#00f">if</span> (<span style="color:#000">pos1</span> &gt; <span style="color:#3af">45</span>)
+        {
+          <span style="color:#000">pos1</span> = <span style="color:#000">pos1</span> - <span style="color:#3af">3</span>;
+          <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">pos1</span>);
+        }
+        <span style="color:#000">myservo1</span>.<span style="color:#000">write</span>(<span style="color:#000">pos1</span>);
+      }
+      <span style="color:#888;font-style:italic">////////////////////////////////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;i&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box1&#34;</span>);
+        <span style="color:#000">box1</span>.<span style="color:#000">write</span>(<span style="color:#3af">0</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box1</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;j&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box2&#34;</span>);
+        <span style="color:#000">box2</span>.<span style="color:#000">write</span>(<span style="color:#3af">180</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box2</span>.<span style="color:#000">write</span>(<span style="color:#3af">97</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;k&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box3&#34;</span>);
+        <span style="color:#000">box3</span>.<span style="color:#000">write</span>(<span style="color:#3af">180</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box3</span>.<span style="color:#000">write</span>(<span style="color:#3af">94</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;l&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box4&#34;</span>);
+        <span style="color:#000">box4</span>.<span style="color:#000">write</span>(<span style="color:#3af">180</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box4</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;m&#39;</span>)
+      {
+        <span style="color:#000">box1</span>.<span style="color:#000">write</span>(<span style="color:#3af">180</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box1</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;n&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box2&#34;</span>);
+        <span style="color:#000">box2</span>.<span style="color:#000">write</span>(<span style="color:#3af">0</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box2</span>.<span style="color:#000">write</span>(<span style="color:#3af">97</span>);
+      }
+      <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">c</span>);
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;q&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box3&#34;</span>);
+        <span style="color:#000">box3</span>.<span style="color:#000">write</span>(<span style="color:#3af">0</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box3</span>.<span style="color:#000">write</span>(<span style="color:#3af">94</span>);
+      }
+      <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#000">c</span>);
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;p&#39;</span>)
+      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;box4&#34;</span>);
+        <span style="color:#000">box4</span>.<span style="color:#000">write</span>(<span style="color:#3af">0</span>);
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#000">box4</span>.<span style="color:#000">write</span>(<span style="color:#3af">90</span>);
+      }
+      <span style="color:#888;font-style:italic">///////////////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic">//      if (c == &#39;r&#39;)
+</span><span style="color:#888;font-style:italic">//      {
+</span><span style="color:#888;font-style:italic">//        Serial.println(&#34;grap&#34;);
+</span><span style="color:#888;font-style:italic">//        while (pos4 &lt; 56) {
+</span><span style="color:#888;font-style:italic">//          //手臂0到55度
+</span><span style="color:#888;font-style:italic">//          pos4 = pos4 + 1;
+</span><span style="color:#888;font-style:italic">//          myservo4.write(pos4);
+</span><span style="color:#888;font-style:italic">//          delay(60);
+</span><span style="color:#888;font-style:italic">//        }
+</span><span style="color:#888;font-style:italic">//        delay(500);
+</span><span style="color:#888;font-style:italic">//        while (pos3 &gt; 44) {
+</span><span style="color:#888;font-style:italic">//          //手臂180到45度
+</span><span style="color:#888;font-style:italic">//          pos3 = pos3 - 1;
+</span><span style="color:#888;font-style:italic">//          myservo3.write(pos3);
+</span><span style="color:#888;font-style:italic">//          delay(60);
+</span><span style="color:#888;font-style:italic">//        }
+</span><span style="color:#888;font-style:italic">//      }??????????????重複
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#888;font-style:italic">/////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;r&#39;</span>)<span style="color:#888;font-style:italic">//到夾物
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;grap&#34;</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &lt; <span style="color:#3af">55</span>) {
+          <span style="color:#888;font-style:italic">//手臂0到55度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">500</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">45</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;s&#39;</span>)<span style="color:#888;font-style:italic">//回去
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;return&#34;</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &lt; <span style="color:#3af">170</span>) {
+          <span style="color:#888;font-style:italic">//手臂0到55度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">500</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &gt; <span style="color:#3af">25</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">500</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos2</span> &gt; <span style="color:#3af">0</span>) {
+          <span style="color:#888;font-style:italic">//基座到0
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+      <span style="color:#888;font-style:italic">/////////////////////////////////////////////////
+</span><span style="color:#888;font-style:italic"></span>      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;t&#39;</span>)<span style="color:#888;font-style:italic">//到box1
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;tobox1&#34;</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &lt; <span style="color:#3af">30</span>) {
+          <span style="color:#888;font-style:italic">//手臂0
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">500</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">155</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">500</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos2</span> &lt; <span style="color:#3af">58</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;u&#39;</span>)<span style="color:#888;font-style:italic">//到box2
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;tobox2&#34;</span>);
+        
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">165</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos2</span> &lt; <span style="color:#3af">48</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &lt;<span style="color:#3af">32</span>) {
+          <span style="color:#888;font-style:italic">//手臂0
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> +  <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;v&#39;</span>)<span style="color:#888;font-style:italic">//到box3
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;tobox3&#34;</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">155</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos2</span> &lt; <span style="color:#3af">40</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &lt;<span style="color:#3af">32</span>) {
+          <span style="color:#888;font-style:italic">//手臂0
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> +  <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+      <span style="color:#00f">if</span> (<span style="color:#000">c</span> == <span style="color:#5a2">&#39;w&#39;</span>)<span style="color:#888;font-style:italic">//到box4
+</span><span style="color:#888;font-style:italic"></span>      {
+        <span style="color:#000">Serial</span>.<span style="color:#000">println</span>(<span style="color:#5a2">&#34;tobox4&#34;</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos3</span> &gt; <span style="color:#3af">145</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos3</span> = <span style="color:#000">pos3</span> - <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo3</span>.<span style="color:#000">write</span>(<span style="color:#000">pos3</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos2</span> &lt; <span style="color:#3af">35</span>) {
+          <span style="color:#888;font-style:italic">//手臂180到45度
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos2</span> = <span style="color:#000">pos2</span> + <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo2</span>.<span style="color:#000">write</span>(<span style="color:#000">pos2</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+        <span style="color:#000">delay</span>(<span style="color:#3af">300</span>);
+        <span style="color:#00f">while</span> (<span style="color:#000">pos4</span> &lt;<span style="color:#3af">35</span>) {
+          <span style="color:#888;font-style:italic">//手臂0
+</span><span style="color:#888;font-style:italic"></span>          <span style="color:#000">pos4</span> = <span style="color:#000">pos4</span> +  <span style="color:#3af">1</span>;
+          <span style="color:#000">myservo4</span>.<span style="color:#000">write</span>(<span style="color:#000">pos4</span>);
+          <span style="color:#000">delay</span>(<span style="color:#3af">40</span>);
+        }
+      }
+
+    }
+  }
+}
+</code></pre></div><pre><code>app inventor
+車體移動  及  手臂夾爪  控制
+</code></pre><p><img src="/images/app_inventor.png" alt=""></p>
+<h3 id="組裝測試">組裝測試</h3>
+<p><img src="/images/me_result.png" alt=""></p>
+<h3 id="競賽">競賽</h3>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/_6WfSrbr_ow" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h3 id="成員">成員</h3>
+<p><img src="/images/gallery/%E5%90%88%E7%85%A73.jpg" alt=""></p>
 
         </div>
 
